@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>⏳ شمارش معکوس خون‌آلود - دقیق</title>
+    <title>⏳ شمارش معکوس خون‌آلود</title>
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+
     <style>
-        /* ===== RESET & BASE ===== */
+        /* ===== RESET ===== */
         * {
             margin: 0;
             padding: 0;
@@ -21,175 +22,299 @@
             justify-content: center;
             align-items: center;
             background: #0a0000;
-            font-family: 'Segoe UI', 'Arial', sans-serif;
+            font-family: 'Orbitron', 'Segoe UI', sans-serif;
             padding: 1rem;
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* ===== BLOODY BACKGROUND ===== */
+        /* ===== BACKGROUND OVERLAY ===== */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background:
-                radial-gradient(ellipse at 20% 50%, rgba(180, 0, 0, 0.25) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 50%, rgba(200, 0, 0, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 100%, rgba(255, 0, 0, 0.08) 0%, transparent 40%);
+                radial-gradient(ellipse at 30% 20%, rgba(180, 0, 0, 0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(200, 0, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 0, 0, 0.05) 0%, transparent 70%);
             z-index: 0;
-            pointer-events: none;
-            animation: bloodPulse 3s ease-in-out infinite;
+            animation: bgPulse 4s ease-in-out infinite;
         }
 
-        @keyframes bloodPulse {
+        @keyframes bgPulse {
             0%,
             100% {
-                opacity: 0.7;
+                opacity: 0.6;
             }
             50% {
                 opacity: 1;
             }
         }
 
-        /* ===== BLOOD DRIPS ===== */
-        .blood-drips {
+        /* ===== BLOOD PARTICLES ===== */
+        .particles {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
         }
 
-        .drip {
+        .particle {
             position: absolute;
-            top: -100px;
-            width: 4px;
-            background: linear-gradient(to bottom, rgba(180, 0, 0, 0.8), rgba(255, 0, 0, 0.3));
-            border-radius: 0 0 50% 50%;
-            animation: dripFall linear infinite;
-        }
-
-        .drip:nth-child(1) { left: 5%; height: 80px; animation-duration: 4.2s; animation-delay: 0s; }
-        .drip:nth-child(2) { left: 15%; height: 60px; animation-duration: 3.8s; animation-delay: 1.5s; }
-        .drip:nth-child(3) { left: 30%; height: 100px; animation-duration: 5s; animation-delay: 0.8s; }
-        .drip:nth-child(4) { left: 50%; height: 70px; animation-duration: 4.5s; animation-delay: 2.2s; }
-        .drip:nth-child(5) { left: 65%; height: 90px; animation-duration: 3.5s; animation-delay: 1.2s; }
-        .drip:nth-child(6) { left: 80%; height: 50px; animation-duration: 4.8s; animation-delay: 0.3s; }
-        .drip:nth-child(7) { left: 92%; height: 75px; animation-duration: 3.9s; animation-delay: 1.9s; }
-        .drip:nth-child(8) { left: 45%; height: 110px; animation-duration: 5.2s; animation-delay: 0.6s; }
-
-        @keyframes dripFall {
-            0% { transform: translateY(0) scaleY(1); opacity: 0; }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(110vh) scaleY(0.5); opacity: 0; }
-        }
-
-        /* ===== SPLASH ===== */
-        .splash {
-            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.6), transparent);
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(200, 0, 0, 0.15), transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-            animation: splashFloat 8s ease-in-out infinite;
+            animation: floatParticle linear infinite;
         }
 
-        .splash:nth-child(1) { width: 300px; height: 300px; top: 10%; left: -5%; animation-delay: 0s; }
-        .splash:nth-child(2) { width: 400px; height: 400px; bottom: -10%; right: -10%; animation-delay: 3s; }
-        .splash:nth-child(3) { width: 200px; height: 200px; top: 50%; left: 50%; animation-delay: 1.5s; }
+        .particle:nth-child(1) {
+            left: 10%;
+            animation-duration: 12s;
+            animation-delay: 0s;
+            width: 8px;
+            height: 8px;
+        }
+        .particle:nth-child(2) {
+            left: 25%;
+            animation-duration: 15s;
+            animation-delay: 2s;
+            width: 4px;
+            height: 4px;
+        }
+        .particle:nth-child(3) {
+            left: 40%;
+            animation-duration: 10s;
+            animation-delay: 4s;
+            width: 10px;
+            height: 10px;
+        }
+        .particle:nth-child(4) {
+            left: 55%;
+            animation-duration: 14s;
+            animation-delay: 1s;
+            width: 5px;
+            height: 5px;
+        }
+        .particle:nth-child(5) {
+            left: 70%;
+            animation-duration: 11s;
+            animation-delay: 3s;
+            width: 7px;
+            height: 7px;
+        }
+        .particle:nth-child(6) {
+            left: 85%;
+            animation-duration: 13s;
+            animation-delay: 5s;
+            width: 9px;
+            height: 9px;
+        }
+        .particle:nth-child(7) {
+            left: 50%;
+            animation-duration: 16s;
+            animation-delay: 2.5s;
+            width: 6px;
+            height: 6px;
+        }
+        .particle:nth-child(8) {
+            left: 15%;
+            animation-duration: 9s;
+            animation-delay: 4.5s;
+            width: 11px;
+            height: 11px;
+        }
 
-        @keyframes splashFloat {
-            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
-            50% { transform: scale(1.5) rotate(180deg); opacity: 0.6; }
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== BLOOD DRIPS ===== */
+        .drips-container {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .drip-line {
+            position: absolute;
+            top: -50px;
+            width: 3px;
+            background: linear-gradient(180deg, rgba(200, 0, 0, 0.6), rgba(255, 0, 0, 0.1));
+            border-radius: 0 0 50% 50%;
+            animation: dripDown linear infinite;
+        }
+
+        .drip-line:nth-child(1) {
+            left: 8%;
+            height: 70px;
+            animation-duration: 4.5s;
+            animation-delay: 0s;
+        }
+        .drip-line:nth-child(2) {
+            left: 22%;
+            height: 50px;
+            animation-duration: 3.8s;
+            animation-delay: 1.8s;
+        }
+        .drip-line:nth-child(3) {
+            left: 38%;
+            height: 90px;
+            animation-duration: 5.2s;
+            animation-delay: 0.6s;
+        }
+        .drip-line:nth-child(4) {
+            left: 55%;
+            height: 60px;
+            animation-duration: 4.1s;
+            animation-delay: 2.5s;
+        }
+        .drip-line:nth-child(5) {
+            left: 72%;
+            height: 80px;
+            animation-duration: 3.5s;
+            animation-delay: 1.2s;
+        }
+        .drip-line:nth-child(6) {
+            left: 88%;
+            height: 55px;
+            animation-duration: 4.8s;
+            animation-delay: 3.2s;
+        }
+
+        @keyframes dripDown {
+            0% {
+                transform: translateY(0) scaleY(1);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.7;
+            }
+            85% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(110vh) scaleY(0.3);
+                opacity: 0;
+            }
         }
 
         /* ===== MAIN CARD ===== */
         .glass-card {
             position: relative;
             z-index: 1;
-            background: rgba(20, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 2.5rem;
-            padding: 2rem 2rem 2.5rem;
-            max-width: 950px;
+            background: linear-gradient(145deg, rgba(30, 0, 0, 0.9), rgba(10, 0, 0, 0.95));
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 3rem;
+            padding: 2.5rem 2.5rem 2rem;
+            max-width: 1000px;
             width: 100%;
-            border: 2px solid rgba(200, 0, 0, 0.3);
+            border: 1px solid rgba(255, 0, 0, 0.15);
             box-shadow:
-                0 30px 80px rgba(180, 0, 0, 0.3),
-                inset 0 0 60px rgba(255, 0, 0, 0.05),
-                0 0 100px rgba(255, 0, 0, 0.1);
+                0 40px 100px rgba(0, 0, 0, 0.8),
+                0 0 80px rgba(200, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 0, 0, 0.1);
             text-align: center;
-            animation: cardGlow 2s ease-in-out infinite;
+            animation: cardGlow 3s ease-in-out infinite;
         }
 
         @keyframes cardGlow {
-            0%, 100% { box-shadow: 0 30px 80px rgba(180, 0, 0, 0.3), 0 0 60px rgba(255, 0, 0, 0.1); }
-            50% { box-shadow: 0 30px 80px rgba(200, 0, 0, 0.5), 0 0 100px rgba(255, 0, 0, 0.2); }
-        }
-
-        .glass-card:hover {
-            transform: scale(1.01);
+            0%,
+            100% {
+                box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 60px rgba(200, 0, 0, 0.05);
+            }
+            50% {
+                box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 100px rgba(200, 0, 0, 0.15), 0 0 150px rgba(200, 0, 0, 0.05);
+            }
         }
 
         /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 0.5rem;
+        }
+
         .header-icon {
-            font-size: 2.8rem;
-            color: #cc0000;
-            display: inline-block;
-            animation: pulse-icon 1.5s infinite ease-in-out;
+            font-size: 2.5rem;
+            color: #ff1111;
+            animation: skullPulse 2s ease-in-out infinite;
             text-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
         }
 
-        @keyframes pulse-icon {
-            0%, 100% { transform: scale(1); text-shadow: 0 0 40px rgba(255, 0, 0, 0.5); }
-            50% { transform: scale(1.15) rotate(4deg); text-shadow: 0 0 80px rgba(255, 0, 0, 0.8); }
+        @keyframes skullPulse {
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                text-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+            }
+            50% {
+                transform: scale(1.1) rotate(-5deg);
+                text-shadow: 0 0 80px rgba(255, 0, 0, 0.8), 0 0 120px rgba(200, 0, 0, 0.4);
+            }
         }
 
         h1 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: rgba(255, 200, 200, 0.9);
-            letter-spacing: 1px;
-            margin: 0.2rem 0;
-            text-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(180deg, #ff4444, #cc0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            text-shadow: none;
         }
 
         .sub-title {
+            font-family: 'Segoe UI', sans-serif;
             font-size: 0.9rem;
-            color: rgba(255, 100, 100, 0.5);
+            color: rgba(255, 100, 100, 0.4);
             font-weight: 300;
-            margin-bottom: 1.5rem;
-            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
         }
 
         .sub-title i {
-            margin: 0 6px;
             color: #cc0000;
+            margin: 0 6px;
         }
 
-        /* ===== TIMER GRID - MAIN ===== */
+        /* ===== TIMER GRID ===== */
         .timer-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 0.8rem;
-            margin-bottom: 1.2rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .time-unit {
-            background: rgba(60, 0, 0, 0.4);
-            border-radius: 1.5rem;
-            padding: 0.8rem 0.2rem;
-            border: 1px solid rgba(200, 0, 0, 0.2);
-            box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
+            background: linear-gradient(145deg, rgba(40, 0, 0, 0.6), rgba(10, 0, 0, 0.8));
+            border-radius: 2rem;
+            padding: 1.2rem 0.5rem;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            box-shadow:
+                inset 0 4px 30px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(200, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
@@ -197,283 +322,460 @@
         .time-unit::before {
             content: '';
             position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255, 0, 0, 0.03), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .time-unit:hover::before {
+            opacity: 1;
+        }
+
+        .time-unit:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(255, 0, 0, 0.3);
+            box-shadow: 0 15px 50px rgba(200, 0, 0, 0.15), inset 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .time-unit::after {
+            content: '';
+            position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(255, 0, 0, 0.05), transparent, rgba(200, 0, 0, 0.05), transparent);
-            animation: rotate-shimmer 6s linear infinite;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 0, 0, 0.03), transparent, rgba(200, 0, 0, 0.03), transparent);
+            animation: rotateShimmer 8s linear infinite;
         }
 
-        @keyframes rotate-shimmer {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .time-unit:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 0, 0, 0.5);
-            box-shadow: 0 10px 40px rgba(255, 0, 0, 0.2);
+        @keyframes rotateShimmer {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .number {
-            font-size: 3.2rem;
-            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
             color: #ff2222;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             position: relative;
             z-index: 1;
             display: block;
-            line-height: 1.2;
-            text-shadow: 0 0 30px rgba(255, 0, 0, 0.4), 0 0 60px rgba(200, 0, 0, 0.2);
+            line-height: 1.1;
+            text-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
+            font-variant-numeric: tabular-nums;
         }
 
         .label {
-            font-size: 0.65rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: rgba(255, 100, 100, 0.4);
+            letter-spacing: 4px;
+            color: rgba(255, 100, 100, 0.3);
             position: relative;
             z-index: 1;
             display: block;
-            margin-top: 2px;
+            margin-top: 4px;
             font-weight: 400;
         }
 
-        /* ===== MICRO SECONDS GRID ===== */
+        /* ===== MICRO GRID ===== */
         .micro-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: 0.4rem;
-            margin: 0.8rem 0 1.2rem;
+            gap: 0.5rem;
+            margin: 1rem 0 1.5rem;
         }
 
         .micro-unit {
-            background: rgba(40, 0, 0, 0.3);
-            border-radius: 0.8rem;
-            padding: 0.3rem 0.1rem;
-            border: 1px solid rgba(200, 0, 0, 0.1);
+            background: rgba(20, 0, 0, 0.4);
+            border-radius: 1.2rem;
+            padding: 0.5rem 0.1rem;
+            border: 1px solid rgba(255, 0, 0, 0.06);
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
         }
 
         .micro-unit:hover {
-            border-color: rgba(255, 0, 0, 0.3);
-            transform: translateY(-2px);
+            border-color: rgba(255, 0, 0, 0.2);
+            transform: translateY(-3px);
+            background: rgba(30, 0, 0, 0.6);
         }
 
         .micro-number {
-            font-size: 1.6rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #ff3333;
             position: relative;
             z-index: 1;
             display: block;
             line-height: 1.2;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
             font-variant-numeric: tabular-nums;
         }
 
         .micro-label {
+            font-family: 'Segoe UI', sans-serif;
             font-size: 0.45rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgba(255, 100, 100, 0.3);
+            letter-spacing: 1.5px;
+            color: rgba(255, 100, 100, 0.25);
             position: relative;
             z-index: 1;
             display: block;
-            margin-top: 1px;
+            margin-top: 2px;
         }
 
-        /* ===== SPECIAL - MOST PRECISE ===== */
+        /* ===== SPECIAL MICRO 6 ===== */
         #micro6 {
             color: #ff0000;
-            text-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 60px rgba(200, 0, 0, 0.4);
-            animation: microPulse 0.1s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.6), 0 0 60px rgba(200, 0, 0, 0.3);
+            animation: microPulse 0.15s ease-in-out infinite alternate;
         }
 
         @keyframes microPulse {
-            0% { text-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 60px rgba(200, 0, 0, 0.4); transform: scale(1); }
-            100% { text-shadow: 0 0 50px rgba(255, 0, 0, 1), 0 0 100px rgba(255, 0, 0, 0.6); transform: scale(1.04); }
+            0% {
+                text-shadow: 0 0 30px rgba(255, 0, 0, 0.6), 0 0 60px rgba(200, 0, 0, 0.3);
+                transform: scale(1);
+            }
+            100% {
+                text-shadow: 0 0 60px rgba(255, 0, 0, 1), 0 0 120px rgba(255, 0, 0, 0.5);
+                transform: scale(1.05);
+            }
         }
 
-        .number.flip, .micro-number.flip {
-            animation: flip-pop-blood 0.2s ease;
+        /* ===== FLIP ANIMATION ===== */
+        .number.flip,
+        .micro-number.flip {
+            animation: flipBlood 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        @keyframes flip-pop-blood {
-            0% { transform: scale(1.3); opacity: 0.4; text-shadow: 0 0 80px rgba(255, 0, 0, 1); }
-            60% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes flipBlood {
+            0% {
+                transform: perspective(400px) rotateX(-90deg) scale(0.8);
+                opacity: 0.3;
+                text-shadow: 0 0 100px rgba(255, 0, 0, 0.8);
+            }
+            60% {
+                transform: perspective(400px) rotateX(10deg) scale(1.05);
+            }
+            100% {
+                transform: perspective(400px) rotateX(0deg) scale(1);
+                opacity: 1;
+            }
         }
 
-        /* ===== PROGRESS BAR ===== */
+        /* ===== PROGRESS ===== */
         .progress-wrap {
             width: 100%;
-            height: 5px;
-            background: rgba(60, 0, 0, 0.3);
+            height: 4px;
+            background: rgba(40, 0, 0, 0.3);
             border-radius: 10px;
             overflow: hidden;
-            margin: 0.8rem 0 1.2rem;
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(200, 0, 0, 0.1);
+            margin: 0.8rem 0 1.5rem;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .progress-bar {
             height: 100%;
             width: 100%;
-            background: linear-gradient(90deg, #8b0000, #ff0000, #cc0000, #ff2222, #8b0000);
-            background-size: 200% 100%;
+            background: linear-gradient(90deg, #660000, #ff0000, #cc0000, #ff2222, #660000);
+            background-size: 300% 100%;
             border-radius: 10px;
-            animation: shimmer-progress 2s linear infinite;
-            transition: width 0.5s ease;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+            animation: progressShimmer 3s linear infinite;
+            transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
         }
 
-        @keyframes shimmer-progress {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+        @keyframes progressShimmer {
+            0% {
+                background-position: 300% 0;
+            }
+            100% {
+                background-position: -300% 0;
+            }
         }
 
-        /* ===== STATUS MESSAGE ===== */
+        /* ===== STATUS ===== */
         .status {
+            font-family: 'Segoe UI', sans-serif;
             font-size: 1.2rem;
-            color: rgba(255, 200, 200, 0.8);
+            color: rgba(255, 200, 200, 0.7);
             font-weight: 600;
             letter-spacing: 2px;
+            padding: 0.7rem 1.5rem;
+            border-radius: 2rem;
+            background: rgba(100, 0, 0, 0.08);
+            border: 1px solid rgba(255, 0, 0, 0.06);
+            animation: statusPulse 2s ease-in-out infinite;
+            display: inline-block;
             margin-top: 0.2rem;
-            text-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
-            animation: bloodText 1s ease-in-out infinite alternate;
-            padding: 0.4rem;
-            border-radius: 1rem;
-            background: rgba(100, 0, 0, 0.15);
-            border: 1px solid rgba(255, 0, 0, 0.1);
         }
 
-        @keyframes bloodText {
-            0% { text-shadow: 0 0 20px rgba(255, 0, 0, 0.2); color: rgba(255, 200, 200, 0.7); }
-            100% { text-shadow: 0 0 40px rgba(255, 0, 0, 0.6), 0 0 80px rgba(200, 0, 0, 0.3); color: #ff4444; }
+        @keyframes statusPulse {
+            0%,
+            100% {
+                border-color: rgba(255, 0, 0, 0.06);
+                box-shadow: 0 0 20px rgba(200, 0, 0, 0);
+            }
+            50% {
+                border-color: rgba(255, 0, 0, 0.15);
+                box-shadow: 0 0 40px rgba(200, 0, 0, 0.05);
+            }
         }
 
         .status i {
             color: #ff0000;
-            margin: 0 8px;
-            animation: iconDrip 1.2s ease-in-out infinite;
+            margin: 0 10px;
+            animation: dripIcon 1.5s ease-in-out infinite;
         }
 
-        @keyframes iconDrip {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(5px) scale(0.9); }
+        @keyframes dripIcon {
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(4px) scale(0.85);
+            }
+        }
+
+        .status .highlight {
+            color: #ff3333;
+            font-weight: 700;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
         }
 
         /* ===== CREDIT ===== */
         .credit {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
+            bottom: 25px;
+            left: 25px;
             z-index: 999;
-            font-size: 1.6rem;
+            font-family: 'Orbitron', 'Arial Black', sans-serif;
+            font-size: 1.4rem;
             font-weight: 900;
             color: #cc0000;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.6), 0 0 40px rgba(255, 0, 0, 0.4), 0 0 80px rgba(200, 0, 0, 0.3);
-            font-family: 'Arial Black', 'Segoe UI', sans-serif;
+            text-shadow:
+                0 0 30px rgba(255, 0, 0, 0.4),
+                0 0 60px rgba(200, 0, 0, 0.2);
+            background: rgba(10, 0, 0, 0.6);
+            padding: 0.6rem 1.5rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(200, 0, 0, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.05);
+            animation: creditGlow 2s ease-in-out infinite;
             letter-spacing: 2px;
-            animation: creditPulse 1.5s ease-in-out infinite alternate;
-            background: rgba(10, 0, 0, 0.7);
-            padding: 0.5rem 1.2rem;
-            border-radius: 1.5rem;
-            border: 2px solid rgba(200, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.15);
-            transform: rotate(-2deg);
+            transform: rotate(-1deg);
+            transition: all 0.4s ease;
         }
 
         .credit:hover {
             transform: rotate(0deg) scale(1.05);
-            border-color: rgba(255, 0, 0, 0.6);
-            box-shadow: 0 0 60px rgba(255, 0, 0, 0.3);
+            border-color: rgba(255, 0, 0, 0.4);
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.15);
         }
 
-        @keyframes creditPulse {
-            0% { text-shadow: 0 0 20px rgba(255, 0, 0, 0.6); color: #cc0000; }
-            100% { text-shadow: 0 0 40px rgba(255, 0, 0, 1), 0 0 80px rgba(255, 0, 0, 0.6); color: #ff2222; }
+        @keyframes creditGlow {
+            0%,
+            100% {
+                text-shadow: 0 0 30px rgba(255, 0, 0, 0.4), 0 0 60px rgba(200, 0, 0, 0.2);
+                border-color: rgba(200, 0, 0, 0.15);
+            }
+            50% {
+                text-shadow: 0 0 50px rgba(255, 0, 0, 0.8), 0 0 100px rgba(255, 0, 0, 0.4);
+                border-color: rgba(255, 0, 0, 0.3);
+            }
         }
 
         .credit i {
-            margin: 0 6px;
+            margin: 0 8px;
             color: #ff0000;
-            animation: creditIcon 2s ease-in-out infinite;
+            animation: creditSkull 2.5s ease-in-out infinite;
         }
 
-        @keyframes creditIcon {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.3) rotate(10deg); }
+        @keyframes creditSkull {
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(10deg);
+            }
         }
 
         /* ===== EXPIRED ===== */
-        .expired .number, .expired .micro-number {
+        .expired .number,
+        .expired .micro-number {
             color: #ff0000 !important;
             text-shadow: 0 0 60px rgba(255, 0, 0, 0.8), 0 0 120px rgba(200, 0, 0, 0.5) !important;
         }
 
-        .expired .time-unit, .expired .micro-unit {
-            border-color: rgba(255, 0, 0, 0.5);
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
+        .expired .time-unit,
+        .expired .micro-unit {
+            border-color: rgba(255, 0, 0, 0.4);
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.1);
         }
 
         .expired .status {
             color: #ff0000;
             text-shadow: 0 0 60px rgba(255, 0, 0, 0.8);
+            border-color: rgba(255, 0, 0, 0.3);
+        }
+
+        .expired .glass-card {
+            animation: expiredGlow 1s ease-in-out infinite;
+        }
+
+        @keyframes expiredGlow {
+            0%,
+            100% {
+                box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 80px rgba(200, 0, 0, 0.2);
+            }
+            50% {
+                box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 150px rgba(200, 0, 0, 0.4);
+            }
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .glass-card { padding: 1.5rem 1rem 2rem; }
-            .number { font-size: 2.4rem; }
-            .micro-number { font-size: 1.2rem; }
-            .timer-grid { gap: 0.5rem; }
-            .micro-grid { gap: 0.3rem; }
-            .credit { font-size: 1.2rem; padding: 0.4rem 1rem; bottom: 10px; left: 10px; }
-            .status { font-size: 1rem; }
-            h1 { font-size: 1.2rem; }
+            .glass-card {
+                padding: 1.8rem 1.2rem;
+                border-radius: 2rem;
+            }
+            .number {
+                font-size: 2.8rem;
+            }
+            .micro-number {
+                font-size: 1.4rem;
+            }
+            .timer-grid {
+                gap: 0.6rem;
+            }
+            .micro-grid {
+                gap: 0.3rem;
+            }
+            .credit {
+                font-size: 1rem;
+                padding: 0.4rem 1rem;
+                bottom: 15px;
+                left: 15px;
+            }
+            h1 {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            .status {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+            }
+            .header-icon {
+                font-size: 2rem;
+            }
+            .time-unit {
+                padding: 0.8rem 0.3rem;
+                border-radius: 1.5rem;
+            }
+            .micro-unit {
+                padding: 0.3rem 0.1rem;
+                border-radius: 0.8rem;
+            }
         }
 
         @media (max-width: 480px) {
-            .glass-card { padding: 1rem 0.6rem 1.5rem; border-radius: 1.5rem; }
-            .number { font-size: 1.8rem; }
-            .micro-number { font-size: 0.9rem; }
-            .timer-grid { gap: 0.3rem; }
-            .micro-grid { gap: 0.2rem; }
-            .label { font-size: 0.5rem; letter-spacing: 1px; }
-            .micro-label { font-size: 0.35rem; }
-            .credit { font-size: 0.9rem; padding: 0.3rem 0.7rem; bottom: 6px; left: 6px; }
-            .status { font-size: 0.8rem; padding: 0.3rem; }
-            h1 { font-size: 1rem; }
-            .header-icon { font-size: 2rem; }
-            .sub-title { font-size: 0.7rem; }
+            .glass-card {
+                padding: 1.2rem 0.6rem;
+                border-radius: 1.5rem;
+            }
+            .number {
+                font-size: 2rem;
+            }
+            .micro-number {
+                font-size: 1rem;
+            }
+            .timer-grid {
+                gap: 0.4rem;
+            }
+            .micro-grid {
+                gap: 0.2rem;
+            }
+            .label {
+                font-size: 0.5rem;
+                letter-spacing: 2px;
+            }
+            .micro-label {
+                font-size: 0.35rem;
+                letter-spacing: 1px;
+            }
+            .credit {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.7rem;
+                bottom: 10px;
+                left: 10px;
+                letter-spacing: 1px;
+            }
+            .status {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+            h1 {
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+            }
+            .header-icon {
+                font-size: 1.5rem;
+            }
+            .sub-title {
+                font-size: 0.65rem;
+                margin-bottom: 1rem;
+            }
+            .time-unit {
+                padding: 0.6rem 0.2rem;
+                border-radius: 1rem;
+            }
+            .micro-unit {
+                padding: 0.2rem 0.05rem;
+                border-radius: 0.5rem;
+            }
+            .progress-wrap {
+                height: 3px;
+                margin: 0.5rem 0 1rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== BLOOD DRIPS ===== -->
-    <div class="blood-drips">
-        <div class="drip"></div>
-        <div class="drip"></div>
-        <div class="drip"></div>
-        <div class="drip"></div>
-        <div class="drip"></div>
-        <div class="drip"></div>
-        <div class="drip"></div>
-        <div class="drip"></div>
+    <!-- ===== PARTICLES ===== -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
 
-    <!-- ===== SPLASHES ===== -->
-    <div class="splash"></div>
-    <div class="splash"></div>
-    <div class="splash"></div>
+    <!-- ===== DRIPS ===== -->
+    <div class="drips-container">
+        <div class="drip-line"></div>
+        <div class="drip-line"></div>
+        <div class="drip-line"></div>
+        <div class="drip-line"></div>
+        <div class="drip-line"></div>
+        <div class="drip-line"></div>
+    </div>
 
     <!-- ===== CREDIT ===== -->
     <div class="credit">
@@ -484,18 +786,21 @@
 
     <!-- ===== MAIN CARD ===== -->
     <div class="glass-card" id="app">
-        <div class="header-icon">
-            <i class="fas fa-skull"></i>
+        <!-- HEADER -->
+        <div class="header">
+            <i class="fas fa-skull header-icon"></i>
+            <h1>زمان تموم شده!</h1>
+            <i class="fas fa-skull header-icon" style="animation-delay:0.5s;"></i>
         </div>
-        <h1>⏳ زمان تموم شده!</h1>
+
         <p class="sub-title">
             <i class="fas fa-calendar-alt"></i>
             ۱۷ ژوئیه ۲۰۲۶ — ۱۴:۳۶
             <i class="fas fa-clock"></i>
         </p>
 
-        <!-- ===== MAIN TIMER ===== -->
-        <div class="timer-grid" id="timerGrid">
+        <!-- MAIN TIMER -->
+        <div class="timer-grid">
             <div class="time-unit">
                 <span class="number" id="days">۰۰</span>
                 <span class="label">روز</span>
@@ -514,8 +819,8 @@
             </div>
         </div>
 
-        <!-- ===== MICRO SECONDS ===== -->
-        <div class="micro-grid" id="microGrid">
+        <!-- MICRO SECONDS -->
+        <div class="micro-grid">
             <div class="micro-unit">
                 <span class="micro-number" id="micro1">۰</span>
                 <span class="micro-label">دهم</span>
@@ -542,12 +847,12 @@
             </div>
         </div>
 
-        <!-- ===== PROGRESS ===== -->
+        <!-- PROGRESS -->
         <div class="progress-wrap">
             <div class="progress-bar" id="progressBar"></div>
         </div>
 
-        <!-- ===== STATUS ===== -->
+        <!-- STATUS -->
         <div class="status" id="statusMessage">
             <i class="fas fa-tint"></i>
             بدو الناز سریع تحویل بده
@@ -559,10 +864,8 @@
         (function() {
             'use strict';
 
-            // ===== TARGET: 17 July 2026, 14:36 IRST =====
             const TARGET = new Date('2026-07-17T14:36:00+03:30');
 
-            // ===== DOM REFS =====
             const daysEl = document.getElementById('days');
             const hoursEl = document.getElementById('hours');
             const minutesEl = document.getElementById('minutes');
@@ -581,7 +884,6 @@
             const statusMsg = document.getElementById('statusMessage');
             const appCard = document.getElementById('app');
 
-            // ===== PREV VALUES =====
             let prev = {
                 days: '--',
                 hours: '--',
@@ -590,7 +892,6 @@
                 micro: ['--', '--', '--', '--', '--', '--']
             };
 
-            // ===== HELPERS =====
             function pad(n) {
                 return String(n).padStart(2, '0');
             }
@@ -606,12 +907,10 @@
                 }
             }
 
-            // ===== UPDATE TIMER =====
             function updateTimer() {
                 const now = new Date();
                 const diffMs = TARGET.getTime() - now.getTime();
 
-                // --- EXPIRED ---
                 if (diffMs <= 0) {
                     daysEl.textContent = '۰۰';
                     hoursEl.textContent = '۰۰';
@@ -630,21 +929,19 @@
 
                 appCard.classList.remove('expired');
 
-                // --- CALCULATE MAIN ---
                 const totalSec = Math.floor(diffMs / 1000);
                 const days = Math.floor(totalSec / 86400);
                 const hours = Math.floor((totalSec % 86400) / 3600);
                 const minutes = Math.floor((totalSec % 3600) / 60);
                 const seconds = totalSec % 60;
 
-                // --- MICRO SECONDS (fractional) ---
-                const fractional = (diffMs % 1000) / 1000; // 0.000 - 0.999
-                const micro1 = Math.floor(fractional * 10) % 10;           // دهم
-                const micro2 = Math.floor(fractional * 100) % 10;          // صدم
-                const micro3 = Math.floor(fractional * 1000) % 10;         // هزارم
-                const micro4 = Math.floor(fractional * 10000) % 10;        // ده‌هزارم
-                const micro5 = Math.floor(fractional * 100000) % 10;       // صد‌هزارم
-                const micro6 = Math.floor(fractional * 1000000) % 10;      // یک‌میلیونوم
+                const fractional = (diffMs % 1000) / 1000;
+                const micro1 = Math.floor(fractional * 10) % 10;
+                const micro2 = Math.floor(fractional * 100) % 10;
+                const micro3 = Math.floor(fractional * 1000) % 10;
+                const micro4 = Math.floor(fractional * 10000) % 10;
+                const micro5 = Math.floor(fractional * 100000) % 10;
+                const micro6 = Math.floor(fractional * 1000000) % 10;
 
                 const dStr = pad(days);
                 const hStr = pad(hours);
@@ -660,25 +957,21 @@
                     String(micro6)
                 ];
 
-                // --- UPDATE MAIN ---
                 animateElement(daysEl, dStr, prev.days);
                 animateElement(hoursEl, hStr, prev.hours);
                 animateElement(minutesEl, mStr, prev.minutes);
                 animateElement(secondsEl, sStr, prev.seconds);
 
-                // --- UPDATE MICRO ---
                 for (let i = 0; i < 6; i++) {
                     animateElement(microEls[i], microStr[i], prev.micro[i]);
                 }
 
-                // --- STORE PREV ---
                 prev.days = dStr;
                 prev.hours = hStr;
                 prev.minutes = mStr;
                 prev.seconds = sStr;
                 prev.micro = microStr;
 
-                // --- PROGRESS ---
                 const startRange = new Date('2026-01-01T00:00:00+03:30');
                 const endRange = TARGET;
                 const totalRangeMs = endRange.getTime() - startRange.getTime();
@@ -687,7 +980,6 @@
                 progress = Math.max(progress, 0);
                 progressBar.style.width = (progress * 100) + '%';
 
-                // --- STATUS MESSAGE ---
                 const msgs = [
                     '🩸 بدو الناز سریع تحویل بده 🩸',
                     '⚡ الناز! وقت کمه! ⚡',
@@ -702,9 +994,8 @@
                 `;
             }
 
-            // ===== START =====
             updateTimer();
-            setInterval(updateTimer, 100); // به‌روزرسانی هر ۱۰۰ میلی‌ثانیه برای دقت بالا
+            setInterval(updateTimer, 100);
 
             document.addEventListener('visibilitychange', function() {
                 if (!document.hidden) updateTimer();
