@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>⏳ شمارش معکوس خون‌آلود</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0a0000;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            padding: 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ===== BLOODY BACKGROUND EFFECT ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(180, 0, 0, 0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(200, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(255, 0, 0, 0.08) 0%, transparent 40%);
+            z-index: 0;
+            pointer-events: none;
+            animation: bloodPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes bloodPulse {
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== BLOOD DRIP ANIMATION ===== */
+        .blood-drips {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .drip {
+            position: absolute;
+            top: -100px;
+            width: 4px;
+            background: linear-gradient(to bottom, rgba(180, 0, 0, 0.8), rgba(255, 0, 0, 0.3));
+            border-radius: 0 0 50% 50%;
+            animation: dripFall linear infinite;
+        }
+
+        .drip:nth-child(1) {
+            left: 5%;
+            height: 80px;
+            animation-duration: 4.2s;
+            animation-delay: 0s;
+        }
+        .drip:nth-child(2) {
+            left: 15%;
+            height: 60px;
+            animation-duration: 3.8s;
+            animation-delay: 1.5s;
+        }
+        .drip:nth-child(3) {
+            left: 30%;
+            height: 100px;
+            animation-duration: 5s;
+            animation-delay: 0.8s;
+        }
+        .drip:nth-child(4) {
+            left: 50%;
+            height: 70px;
+            animation-duration: 4.5s;
+            animation-delay: 2.2s;
+        }
+        .drip:nth-child(5) {
+            left: 65%;
+            height: 90px;
+            animation-duration: 3.5s;
+            animation-delay: 1.2s;
+        }
+        .drip:nth-child(6) {
+            left: 80%;
+            height: 50px;
+            animation-duration: 4.8s;
+            animation-delay: 0.3s;
+        }
+        .drip:nth-child(7) {
+            left: 92%;
+            height: 75px;
+            animation-duration: 3.9s;
+            animation-delay: 1.9s;
+        }
+        .drip:nth-child(8) {
+            left: 45%;
+            height: 110px;
+            animation-duration: 5.2s;
+            animation-delay: 0.6s;
+        }
+
+        @keyframes dripFall {
+            0% {
+                transform: translateY(0) scaleY(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(110vh) scaleY(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* ===== BLOOD SPLASH DOTS ===== */
+        .splash {
+            position: fixed;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200, 0, 0, 0.15), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: splashFloat 8s ease-in-out infinite;
+        }
+
+        .splash:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+        .splash:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            bottom: -10%;
+            right: -10%;
+            animation-delay: 3s;
+        }
+        .splash:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes splashFloat {
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 0.6;
+            }
+        }
+
+        /* ===== GLASS CARD - BLOODY THEME ===== */
+        .glass-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(20, 0, 0, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 3rem;
+            padding: 3rem 2.5rem;
+            max-width: 780px;
+            width: 100%;
+            border: 2px solid rgba(200, 0, 0, 0.3);
+            box-shadow:
+                0 30px 80px rgba(180, 0, 0, 0.3),
+                inset 0 0 60px rgba(255, 0, 0, 0.05),
+                0 0 100px rgba(255, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            animation: cardGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes cardGlow {
+            0%,
+            100% {
+                box-shadow: 0 30px 80px rgba(180, 0, 0, 0.3), 0 0 60px rgba(255, 0, 0, 0.1);
+            }
+            50% {
+                box-shadow: 0 30px 80px rgba(200, 0, 0, 0.5), 0 0 100px rgba(255, 0, 0, 0.2);
+            }
+        }
+
+        .glass-card:hover {
+            transform: scale(1.01);
+        }
+
+        /* ===== HEADER ===== */
+        .header-icon {
+            font-size: 3.2rem;
+            color: #cc0000;
+            margin-bottom: 0.3rem;
+            display: inline-block;
+            animation: pulse-icon 1.5s infinite ease-in-out;
+            text-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+        }
+
+        @keyframes pulse-icon {
+            0%,
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+            }
+            50% {
+                transform: scale(1.15) rotate(4deg);
+                text-shadow: 0 0 80px rgba(255, 0, 0, 0.8), 0 0 120px rgba(200, 0, 0, 0.4);
+            }
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: rgba(255, 200, 200, 0.9);
+            letter-spacing: 1px;
+            margin-bottom: 0.2rem;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .sub-title {
+            font-size: 1rem;
+            color: rgba(255, 100, 100, 0.5);
+            font-weight: 300;
+            margin-bottom: 2.2rem;
+            letter-spacing: 2px;
+        }
+
+        .sub-title i {
+            margin: 0 6px;
+            color: #cc0000;
+        }
+
+        /* ===== TIMER GRID ===== */
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .time-unit {
+            background: rgba(60, 0, 0, 0.4);
+            border-radius: 1.8rem;
+            padding: 1rem 0.3rem;
+            border: 1px solid rgba(200, 0, 0, 0.2);
+            box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .time-unit::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 0, 0, 0.05), transparent, rgba(200, 0, 0, 0.05), transparent);
+            animation: rotate-shimmer 6s linear infinite;
+        }
+
+        @keyframes rotate-shimmer {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .time-unit:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 0, 0, 0.5);
+            box-shadow: 0 10px 40px rgba(255, 0, 0, 0.2);
+        }
+
+        .number {
+            font-size: 3.8rem;
+            font-weight: 700;
+            color: #ff2222;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+            display: block;
+            line-height: 1.2;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.4), 0 0 60px rgba(200, 0, 0, 0.2);
+            transition: all 0.15s ease;
+        }
+
+        /* ===== SPECIAL BLOODY SECOND ===== */
+        #seconds {
+            color: #ff0000;
+            text-shadow:
+                0 0 30px rgba(255, 0, 0, 0.8),
+                0 0 60px rgba(255, 0, 0, 0.5),
+                0 0 100px rgba(200, 0, 0, 0.3);
+            animation: secondPulse 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes secondPulse {
+            0% {
+                text-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.5);
+                transform: scale(1);
+            }
+            100% {
+                text-shadow: 0 0 50px rgba(255, 0, 0, 1), 0 0 100px rgba(255, 0, 0, 0.7), 0 0 150px rgba(200, 0, 0, 0.4);
+                transform: scale(1.05);
+            }
+        }
+
+        .number.flip {
+            animation: flip-pop-blood 0.3s ease;
+        }
+
+        @keyframes flip-pop-blood {
+            0% {
+                transform: scale(1.4);
+                opacity: 0.4;
+                text-shadow: 0 0 80px rgba(255, 0, 0, 1);
+            }
+            60% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: rgba(255, 100, 100, 0.4);
+            position: relative;
+            z-index: 1;
+            display: block;
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        /* ===== PROGRESS BAR - BLOOD ===== */
+        .progress-wrap {
+            width: 100%;
+            height: 6px;
+            background: rgba(60, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1.2rem 0 2rem;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(200, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #8b0000, #ff0000, #cc0000, #ff2222, #8b0000);
+            background-size: 200% 100%;
+            border-radius: 10px;
+            animation: shimmer-progress 2s linear infinite;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4), 0 0 60px rgba(200, 0, 0, 0.2);
+        }
+
+        @keyframes shimmer-progress {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* ===== STATUS MESSAGE - BLOODY ===== */
+        .status {
+            font-size: 1.3rem;
+            color: rgba(255, 200, 200, 0.8);
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-top: 0.4rem;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+            animation: bloodText 1s ease-in-out infinite alternate;
+            padding: 0.5rem;
+            border-radius: 1rem;
+            background: rgba(100, 0, 0, 0.15);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        @keyframes bloodText {
+            0% {
+                text-shadow: 0 0 20px rgba(255, 0, 0, 0.2), 0 0 40px rgba(200, 0, 0, 0.1);
+                color: rgba(255, 200, 200, 0.7);
+            }
+            100% {
+                text-shadow: 0 0 40px rgba(255, 0, 0, 0.6), 0 0 80px rgba(200, 0, 0, 0.3), 0 0 120px rgba(255, 0, 0, 0.2);
+                color: #ff4444;
+            }
+        }
+
+        .status i {
+            color: #ff0000;
+            margin: 0 8px;
+            animation: iconDrip 1.2s ease-in-out infinite;
+        }
+
+        @keyframes iconDrip {
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(5px) scale(0.9);
+            }
+        }
+
+        .status .highlight {
+            color: #ff2222;
+            font-weight: 700;
+            text-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+        }
+
+        /* ===== BLOOD DRIP ON CARD ===== */
+        .glass-card::after {
+            content: '🩸';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: dripDrop 3s ease-in-out infinite;
+        }
+
+        @keyframes dripDrop {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(30px) rotate(20deg);
+                opacity: 0.8;
+            }
+        }
+
+        /* ===== EXPIRED STATE ===== */
+        .expired .number {
+            color: #ff0000 !important;
+            text-shadow: 0 0 60px rgba(255, 0, 0, 0.8), 0 0 120px rgba(200, 0, 0, 0.5) !important;
+        }
+
+        .expired .timer-grid .time-unit {
+            border-color: rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
+        }
+
+        .expired .status {
+            color: #ff0000;
+            text-shadow: 0 0 60px rgba(255, 0, 0, 0.8);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 580px) {
+            .glass-card {
+                padding: 2rem 1.2rem;
+                border-radius: 2rem;
+            }
+            .timer-grid {
+                gap: 0.6rem;
+            }
+            .number {
+                font-size: 2.6rem;
+            }
+            #seconds {
+                font-size: 2.8rem;
+            }
+            .time-unit {
+                padding: 0.7rem 0.2rem;
+                border-radius: 1.2rem;
+            }
+            h1 {
+                font-size: 1.3rem;
+            }
+            .header-icon {
+                font-size: 2.4rem;
+            }
+            .status {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .number {
+                font-size: 2rem;
+            }
+            #seconds {
+                font-size: 2.2rem;
+            }
+            .label {
+                font-size: 0.6rem;
+                letter-spacing: 1px;
+            }
+            .timer-grid {
+                gap: 0.4rem;
+            }
+            .status {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== BLOOD DRIPS ===== -->
+    <div class="blood-drips">
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+    </div>
+
+    <!-- ===== BLOOD SPLASHES ===== -->
+    <div class="splash"></div>
+    <div class="splash"></div>
+    <div class="splash"></div>
+
+    <!-- ===== MAIN CARD ===== -->
+    <div class="glass-card" id="app">
+        <div class="header-icon">
+            <i class="fas fa-skull"></i>
+        </div>
+        <h1>⏳ زمان تموم شده!</h1>
+        <p class="sub-title">
+            <i class="fas fa-calendar-alt"></i>
+            ۱۷ ژوئیه ۲۰۲۶ — ۱۴:۳۶
+            <i class="fas fa-clock"></i>
+        </p>
+
+        <!-- Timer Grid -->
+        <div class="timer-grid" id="timerGrid">
+            <div class="time-unit" id="daysUnit">
+                <span class="number" id="days">۰۰</span>
+                <span class="label">روز</span>
+            </div>
+            <div class="time-unit" id="hoursUnit">
+                <span class="number" id="hours">۰۰</span>
+                <span class="label">ساعت</span>
+            </div>
+            <div class="time-unit" id="minutesUnit">
+                <span class="number" id="minutes">۰۰</span>
+                <span class="label">دقیقه</span>
+            </div>
+            <div class="time-unit" id="secondsUnit">
+                <span class="number" id="seconds">۰۰</span>
+                <span class="label">ثانیه</span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-wrap">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- ===== BLOODY STATUS MESSAGE ===== -->
+        <div class="status" id="statusMessage">
+            <i class="fas fa-tint"></i>
+            بدو الیاس سریع تحویل بده
+            <i class="fas fa-tint"></i>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ===== TARGET: 17 July 2026, 14:36 IRST (UTC+3:30) =====
+            const TARGET = new Date('2026-07-17T14:36:00+03:30');
+
+            // DOM refs
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            const progressBar = document.getElementById('progressBar');
+            const statusMsg = document.getElementById('statusMessage');
+            const appCard = document.getElementById('app');
+
+            // Store previous values for flip animation
+            let prev = { days: '--', hours: '--', minutes: '--', seconds: '--' };
+
+            // ===== HELPER: zero pad =====
+            function pad(n) {
+                return String(n).padStart(2, '0');
+            }
+
+            // ===== HELPER: add flip class =====
+            function animateElement(el, value, prevValue) {
+                if (value !== prevValue) {
+                    el.textContent = value;
+                    el.classList.remove('flip');
+                    void el.offsetWidth;
+                    el.classList.add('flip');
+                } else {
+                    el.textContent = value;
+                }
+            }
+
+            // ===== UPDATE TIMER =====
+            function updateTimer() {
+                const now = new Date();
+                const diffMs = TARGET.getTime() - now.getTime();
+
+                // --- EXPIRED ---
+                if (diffMs <= 0) {
+                    daysEl.textContent = '۰۰';
+                    hoursEl.textContent = '۰۰';
+                    minutesEl.textContent = '۰۰';
+                    secondsEl.textContent = '۰۰';
+                    progressBar.style.width = '100%';
+                    statusMsg.innerHTML = `
+                        <i class="fas fa-skull"></i>
+                        <span style="color:#ff0000; font-weight:700;">وقت تموم شد! الیاس دیره!</span>
+                        <i class="fas fa-skull"></i>
+                    `;
+                    appCard.classList.add('expired');
+                    return;
+                }
+
+                appCard.classList.remove('expired');
+
+                // --- CALCULATE ---
+                const totalSec = Math.floor(diffMs / 1000);
+                const days = Math.floor(totalSec / 86400);
+                const hours = Math.floor((totalSec % 86400) / 3600);
+                const minutes = Math.floor((totalSec % 3600) / 60);
+                const seconds = totalSec % 60;
+
+                const dStr = pad(days);
+                const hStr = pad(hours);
+                const mStr = pad(minutes);
+                const sStr = pad(seconds);
+
+                // --- UPDATE DOM with animation ---
+                animateElement(daysEl, dStr, prev.days);
+                animateElement(hoursEl, hStr, prev.hours);
+                animateElement(minutesEl, mStr, prev.minutes);
+                animateElement(secondsEl, sStr, prev.seconds);
+
+                // store current for next tick
+                prev.days = dStr;
+                prev.hours = hStr;
+                prev.minutes = mStr;
+                prev.seconds = sStr;
+
+                // --- PROGRESS BAR ---
+                const startRange = new Date('2026-01-01T00:00:00+03:30');
+                const endRange = TARGET;
+                const totalRangeMs = endRange.getTime() - startRange.getTime();
+                const elapsedMs = now.getTime() - startRange.getTime();
+                let progress = Math.min(elapsedMs / totalRangeMs, 1);
+                progress = Math.max(progress, 0);
+                progressBar.style.width = (progress * 100) + '%';
+
+                // --- KEEP BLOODY MESSAGE ---
+                // فقط پیام ثابت "بدو الیاس سریع تحویل بده" با افکت خون
+                // و گاهی تغییر کوچک برای تنوع
+                const msgs = [
+                    '🩸 بدو الیاس سریع تحویل بده 🩸',
+                    '⚡ الیاس! وقت کمه! ⚡',
+                    '🔥 الیاس بدو! 🔥',
+                    '💀 الیاس! داره دیر میشه! 💀'
+                ];
+
+                // هر ۱۰ ثانیه یه پیام متفاوت نشون بده
+                const cycleIndex = Math.floor(now.getTime() / 10000) % msgs.length;
+                const baseMsg = msgs[cycleIndex];
+
+                statusMsg.innerHTML = `
+                    <i class="fas fa-tint"></i>
+                    ${baseMsg}
+                    <i class="fas fa-tint"></i>
+                `;
+            }
+
+            // ===== FIRST RUN & INTERVAL =====
+            updateTimer();
+            setInterval(updateTimer, 1000);
+
+            // ===== SYNC ON VISIBILITY CHANGE =====
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) {
+                    updateTimer();
+                }
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
